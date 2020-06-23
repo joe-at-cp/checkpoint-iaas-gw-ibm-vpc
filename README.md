@@ -1,1 +1,1 @@
-# checkpoint-iaas-gw-ibm-vpc
+# Check Point CloudGuard Security Gateway
