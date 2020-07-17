@@ -1,4 +1,4 @@
 # Check Point CloudGuard Security Gateway
 
-![GitHub Logo](/images/logo.png)
-Format: ![Alt Text](url)
+![](https://www.checkpoint.com/wp-content/uploads/CP_ltd_vertical_Pos.png=100x200)
+
