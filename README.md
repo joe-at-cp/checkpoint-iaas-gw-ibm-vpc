@@ -1,4 +1,4 @@
-<img src="https://www.checkpoint.com/wp-content/uploads/CP_ltd_vertical_Pos.png" align="center" width="300">
+<img src="https://www.checkpoint.com/wp-content/uploads/CP_ltd_vertical_Pos.png" class="center" width="300">
 
 # Check Point CloudGuard Security Gateway
 
