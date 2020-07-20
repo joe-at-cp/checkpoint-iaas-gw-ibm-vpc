@@ -1,11 +1,13 @@
-<img src="https://www.checkpoint.com/wp-content/uploads/CP_ltd_vertical_Pos.png" class="center" width="300">
+<p align="center">
+  <img width="460" src="http://blog.checkpoint.com/wp-content/uploads/2018/02/CloudGuard_IaaS.jpg">
+</p>
 
 # Check Point CloudGuard Security Gateway
 
 ## Deployment Parameters
 | Deploymenmt Parameter | Description |
 |-----------------------|-------------|
-| region    | Geographical IBM Cloud VPC location to deploy CloudGuard. CloudGuard is supported for deployment in all VPC Gen2 regions: <br> Dallas, TX: **us-south** <br> Washington DC: **us-east** <br> London, UK: **eu-gb** <br> Frankfurt, DE: **eu-de** <br> Tokyo, JP: **jp-tok** <br> Sydney, AU: **au-syd** |
+| region    | Geographical IBM Cloud VPC location to deploy CloudGuard. CloudGuard is supported for deployment in all VPC Gen2 regions. See below for a list of regions and zones|
 | zone      | Availability zone inside selected region|
 | vpc_name  | Name of VPC to deploy into|
 | resource_group | Name of VPC resource group to deploy into |
@@ -16,11 +18,21 @@
 
 
 
+
+## IBM Cloud Regions and Zones
+| Region | Zones |
+|--------|-------|
+| us-south | us-south-1, us-south-2, us-south-1 |
+| us-east  | us-east-1, us-east-2, us-east-1 |
+| eu-gb    | eu-gb-1, eu-gb-2, eu-gb-3 |
+| eu-de    | eu-de-1, eu-de-2, eu-de-3 |
+| jp-tok   | jp-tok-1, jp-tok-2, jp-tok-3 |
+ 
+
+
+
 ## Check Point Knowledgebase
 Click [HERE](https://checkpoint.com/) to view the knowledgebase article for IBM Cloud VPC deployments on the Check Point Usercenter.
-
-
-
 
 
 ## About Check Point Software Technologies Ltd.
