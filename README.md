@@ -9,12 +9,12 @@
 |-----------------------|-------------|
 | VPC_Region | The region where the VPC, networks, and Check Point VSI will be provisioned. To list the available regions, run  the following command: ```ibmcloud is regions```|
 | VPC_Zone   | The zone where the VPC, networks, and Check Point VSI will be provisioned. To list the available zones, run  the following command: ```ibmcloud is zones```|
-| vpc_name  | Name of VPC to deploy into|
-| resource_group | Name of VPC resource group to deploy into |
-| frontend_subnet_id | ID (not the name) of the untrusted subnet of eth0)
-| backend_subnet_id  | ID (not the name) of the trusted subnet of eth1)
-| ssh_key_name       | Name of the ssh key to apply to the CloudGuard instance |
-| vnf_security_group | Name of the security group to apply to the CloudGuard instance |
+| VPC_Name  | The VPC where the Check Point VSI will be provisioned. To list the all VPCs, run  the following command: ```ibmcloud is vpcs```|
+| Resource_Group | The resource group that will be used when provisioning the Check Point VSI. If left unspecififed, the account's default resource group will be used. command: ```ibmcloud resource groups``` |
+| Frontend_Subnet_ID | The ID of the subnet that exists in front of the Check Point Security Gateway that will be provisioned (the "external" network). To list the available subnets, run  the following command: ```ibmcloud is subnets```|
+| Backend_Subnet_ID  | The ID of the subnet that exists behind the Check Point Security Gateway that will be provisioned (the "internal" network).  To list the available subnets, run  the following command: ```ibmcloud is subnets```|
+| SSH_Key       | The pubic SSH Key that will be used when provisioning the Check Point  VSI. To list the available SSH keys, run  the following command: ```ibmcloud is keys``` |
+| VNF_Security_Group | The name of the security group for the VNF VPC. To list the available security groups, run  the following command: ```ibmcloud is security-groups```  |
 
 
 
