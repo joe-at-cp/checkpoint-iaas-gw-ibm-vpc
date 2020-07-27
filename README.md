@@ -27,9 +27,8 @@
 | eu-gb    | eu-gb-1, eu-gb-2, eu-gb-3 |
 | eu-de    | eu-de-1, eu-de-2, eu-de-3 |
 | jp-tok   | jp-tok-1, jp-tok-2, jp-tok-3 |
- 
 
-
+To list the available regions, run the following command: ```ibmcloud is regions```
 
 ## Check Point Knowledgebase
 Click [HERE](https://checkpoint.com/) to view the knowledgebase article for IBM Cloud VPC deployments on the Check Point Usercenter.
