@@ -5,23 +5,23 @@
 provider "ibm" {
   ibmcloud_api_key   = "${var.ibmcloud_api_key}"
   generation         = 2
-  region             = "${var.region}"
+  region             = "${var.VPC_Region}"
   ibmcloud_timeout   = 300
-  resource_group     = "${var.resource_group}"
+  resource_group     = "${var.Resource_Group}"
 }
 
 ##############################################################################
 # Variable block - See each variable description
 ##############################################################################
 
-variable "region" {
-  default     = "us-east"
-  description = "The VPC Region that you want your VPC, networks and the CP virtual server to be provisioned in. To list available regions, run `ibmcloud is regions`."
+variable "VPC_Region" {
+  default     = ""
+  description = "The region where the VPC, networks, and Check Point VSI will be provisioned."
 }
 
-variable "resource_group" {
-  default     = "cprg"
-  description = "The resource group to use. If unspecified, the account's default resource group is used."
+variable "Resource_Group" {
+  default     = "default"
+  description = "The resource group that will be used when provisioning the Check Point VSI. If left unspecififed, the account's default resource group will be used."
 }
 
 variable "vnf_cos_gw_image_url" {
@@ -34,39 +34,39 @@ variable "vnf_cos_gw_image_url_test" {
   description = "The COS image object url for Checkpoint GW qcow2 image in test.cloud.ibm.com."
 }
 
-variable "zone" {
-  default     = "us-east-3"
-  description = "The VPC Zone that you want your VPC networks and virtual servers to be provisioned in. To list available zones, run `ibmcloud is zones`."
+variable "VPC_Zone" {
+  default     = ""
+  description = "The zone where the VPC, networks, and Check Point VSI will be provisioned."
 }
 
-variable "vpc_name" {
-  default     = "cpvpc"
-  description = "The name of your VPC where Checkpoint GW will be provisioned."
+variable "VPC_Name" {
+  default     = ""
+  description = "The VPC where the Check Point VSI will be provisioned."
 }
 
-variable "frontend_subnet_id" {
-  default     = "0777-06f95dd6-47e1-4a68-a2e5-24bb8aaee362"
-  description = "The id of the subnet infront of the Check Point gateway."
+variable "Frontend_Subnet_ID" {
+  default     = ""
+  description = "The ID of the subnet that exists in front of the Check Point Security Gateway that will be provisioned (the 'external' network)."
 }
 
-variable "backend_subnet_id" {
-  default     = "0777-9d1c7162-c5c8-4ea9-a502-62f2d52bab2a"
-  description = "The id of the subnet behind the Check Point gateway."
+variable "Backend_Subnet_ID" {
+  default     = ""
+  description = "The ID of the subnet that exists behind  the Check Point Security Gateway that will be provisioned (the 'internal' network)."
 }
 
-variable "ssh_key_name" {
-  default     = "development"
-  description = "The name of the public SSH key to be used when provisining Checkpoint GW and Mgmt VSIs."
+variable "SSH_Key" {
+  default     = ""
+  description = "The pubic SSH Key that will be used when provisioning the Check Point VSI."
 }
 
-variable "vnf_vpc_gw_image_name" {
+variable "VNF_CP-GW_Instance" {
   default     = "checkpoint-gw-image"
-  description = "The name of the Checkpoint GW custom image to be provisioned in your IBM Cloud account."
+  description = "The name of the Check Point Security Gatewat that will be provisioned."
 }
 
-variable "vnf_security_group" {
+variable "VNF_Security_Group" {
   default     = "checkpointsg"
-  description = "The security group for VNF VPC"
+  description = "The name of the security group assigned to the Check Point VSI."
 }
 
 variable "vnf_gw_instance_name" {
@@ -74,9 +74,9 @@ variable "vnf_gw_instance_name" {
   description = "The name of your Checkpoint GW Virtual Server to be provisioned."
 }
 
-variable "vnf_profile" {
+variable "VNF_Profile" {
   default     = "bx2-2x8"
-  description = "The profile of compute cpu and memory resources to be used when provisioning VSI. bx2-2x8, bx2-4x16, bx2-8x32, bx2-16x64, bx2-32x128, bx2-48x192"
+  description = "The VNF profile that defines the CPU and memory resources. This will be used when provisioning the Check Point VSI."
 }
 
 variable "vnf_license" {
@@ -104,11 +104,11 @@ variable "ibmcloud_api_key" {
 ##############################################################################
 
 data "ibm_is_subnet" "cp_subnet1" {
-  identifier = "${var.frontend_subnet_id}"
+  identifier = "${var.Frontend_Subnet_ID}"
 }
 
 data "ibm_is_subnet" "cp_subnet2" {
-  identifier = "${var.backend_subnet_id}"
+  identifier = "${var.Backend_Subnet_ID}"
 }
 
 data "ibm_is_image" "cp_gw_custom_image" {
@@ -116,28 +116,28 @@ data "ibm_is_image" "cp_gw_custom_image" {
 }
 
 data "ibm_is_ssh_key" "cp_ssh_pub_key" {
-  name = "${var.ssh_key_name}"
+  name = "${var.SSH_Key}"
 }
 
 data "ibm_is_instance_profile" "vnf_profile" {
-  name = "${var.vnf_profile}"
+  name = "${var.VNF_Profile}"
 }
 
 data "ibm_is_region" "region" {
-  name = "${var.region}"
+  name = "${var.VPC_Region}"
 }
 
 data "ibm_is_vpc" "cp_vpc" {
-  name = "${var.vpc_name}"
+  name = "${var.VPC_Name}"
 }
 
 data "ibm_is_zone" "zone" {
-  name   = "${var.zone}"
+  name   = "${var.VPC_Zone}"
   region = "${data.ibm_is_region.region.name}"
 }
 
 data "ibm_resource_group" "rg" {
-  name = "${var.resource_group}"
+  name = "${var.Resource_Group}"
 }
 
 ##############################################################################
@@ -150,7 +150,7 @@ locals {
 
 resource "ibm_is_image" "cp_gw_custom_image" {
   href             = "${local.image_url_gw}"
-  name             = "${var.vnf_vpc_gw_image_name}"
+  name             = "${var.VNF_CP-GW_Instance}"
   operating_system = "centos-7-amd64"
   resource_group   = "${data.ibm_resource_group.rg.id}"
 
@@ -165,7 +165,7 @@ resource "ibm_is_image" "cp_gw_custom_image" {
 ##############################################################################
 
 resource "ibm_is_security_group" "ckp_security_group" {
-    name = "${var.vnf_security_group}"
+    name = "${var.VNF_Security_Group}"
     vpc = "${data.ibm_is_vpc.cp_vpc.id}"
     resource_group = "${data.ibm_resource_group.rg.id}"
 }
@@ -233,7 +233,7 @@ data "external" "delete_custom_image1" {
 
   query = {
     custom_image_id   = "${data.ibm_is_image.cp_gw_custom_image.id}"
-    region            = "${var.region}"
+    region            = "${var.VPC_Region}"
   }
 }
 
