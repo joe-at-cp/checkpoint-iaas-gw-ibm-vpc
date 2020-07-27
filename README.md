@@ -7,8 +7,8 @@
 ## Deployment Parameters
 | Deploymenmt Parameter | Description |
 |-----------------------|-------------|
-| region    | Geographical IBM Cloud VPC location to deploy CloudGuard. CloudGuard is supported for deployment in all VPC Gen2 regions. See below for a list of regions and zones|
-| zone      | Availability zone inside selected region|
+| VPC_Region | The region where the VPC, networks, and Check Point VSI will be provisioned. To list the available regions, run  the following command: ```ibmcloud is regions```|
+| VPC_Zone   | The zone where the VPC, networks, and Check Point VSI will be provisioned. To list the available zones, run  the following command: ```ibmcloud is zones```|
 | vpc_name  | Name of VPC to deploy into|
 | resource_group | Name of VPC resource group to deploy into |
 | frontend_subnet_id | ID (not the name) of the untrusted subnet of eth0)
