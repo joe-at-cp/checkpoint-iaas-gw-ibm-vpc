@@ -20,7 +20,7 @@ variable "VPC_Region" {
 }
 
 variable "Resource_Group" {
-  default     = "default"
+  default     = "Default"
   description = "The resource group that will be used when provisioning the Check Point VSI. If left unspecififed, the account's default resource group will be used."
 }
 
