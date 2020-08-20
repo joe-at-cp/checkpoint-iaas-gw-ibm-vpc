@@ -24,16 +24,6 @@ variable "Resource_Group" {
   description = "The resource group that will be used when provisioning the Check Point VSI. If left unspecififed, the account's default resource group will be used."
 }
 
-variable "vnf_cos_gw_image_url" {
-  default     = "cos://us-east/r80.40-03252020/Check_Point_R80.40_Cloudguard_Security_Gateway_Generic_06012020_EA.qcow2"
-  description = "The COS image object SQL URL for Checkpoint GW qcow2 image."
-}
-
-variable "vnf_cos_gw_image_url_test" {
-  default     = ""
-  description = "The COS image object url for Checkpoint GW qcow2 image in test.cloud.ibm.com."
-}
-
 variable "VPC_Zone" {
   default     = ""
   description = "The zone where the VPC, networks, and Check Point VSI will be provisioned."
@@ -65,7 +55,7 @@ variable "VNF_CP-GW_Instance" {
 }
 
 variable "VNF_Security_Group" {
-  default     = "checkpointsg"
+  default     = ""
   description = "The name of the security group assigned to the Check Point VSI."
 }
 
@@ -79,24 +69,38 @@ variable "VNF_Profile" {
   description = "The VNF profile that defines the CPU and memory resources. This will be used when provisioning the Check Point VSI."
 }
 
+variable "vnf_cos_image_name" {
+  default     = "Check_Point_R80.40_Cloudguard_Security_Management_Generic_06012020_EA.qcow2"
+  description = "(HIDDEN) The COS image file name"
+}
+
+variable "vnf_cos_gw_image_url_test" {
+  default     = ""
+  description = "(HIDDEN) The COS image object url for Checkpoint GW qcow2 image in test.cloud.ibm.com."
+}
+variable "vnf_bucket_base_name" {
+  default     = "r80.40"
+  description = "(HIDDEN) Base name of the COS bucket without the region. "
+}
+
 variable "vnf_license" {
   default     = ""
-  description = "Optional. The BYOL license key that you want your cp virtual server in a VPC to be used by registration flow during cloud-init."
+  description = "(HIDDEN) Optional. The BYOL license key that you want your cp virtual server in a VPC to be used by registration flow during cloud-init."
 }
 
 variable "ibmcloud_endpoint" {
   default     = "cloud.ibm.com"
-  description = "The IBM Cloud environmental variable 'cloud.ibm.com' or 'test.cloud.ibm.com'"
+  description = "(HIDDEN) The IBM Cloud environmental variable 'cloud.ibm.com' or 'test.cloud.ibm.com'"
 }
 
 variable "delete_custom_image_confirmation" {
   default     = ""
-  description = "This variable is to get the confirmation from customers that they will delete the custom image manually, post successful installation of VNF instances. Customer should enter 'Yes' to proceed further with the installation."
+  description = "(HIDDEN) This variable is to get the confirmation from customers that they will delete the custom image manually, post successful installation of VNF instances. Customer should enter 'Yes' to proceed further with the installation."
 }
 
 variable "ibmcloud_api_key" {
   default     = ""
-  description = "holds the user api key"
+  description = "(HIDDEN) holds the user api key"
 }
 
 ##############################################################################
@@ -145,7 +149,7 @@ data "ibm_resource_group" "rg" {
 ##############################################################################
 
 locals {
-  image_url_gw    = "${var.ibmcloud_endpoint == "cloud.ibm.com" ? var.vnf_cos_gw_image_url : var.vnf_cos_gw_image_url_test}"
+  image_url_gw    = "cos://${var.VPC_Region}/${var.vnf_bucket_base_name}-${var.VPC_Region}/${var.vnf_cos_image_name}"
 }
 
 resource "ibm_is_image" "cp_gw_custom_image" {
