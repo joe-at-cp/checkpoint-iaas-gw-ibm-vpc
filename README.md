@@ -14,14 +14,11 @@
 | SSH_Key       | The pubic SSH Key that will be used when provisioning the Check Point  VSI. To list the available SSH keys, run  the following command: ```ibmcloud is keys``` |
 | VNF_Security_Group | The name of the security group for the VNF VPC. To list the available security groups, run  the following command: ```ibmcloud is security-groups```  |
 
-
-
-
 ## IBM Cloud Regions and Zones
 | Region | Zones |
 |--------|-------|
-| us-south | us-south-1, us-south-2, us-south-1 |
-| us-east  | us-east-1, us-east-2, us-east-1 |
+| us-south | us-south-1, us-south-2, us-south-3 |
+| us-east  | us-east-1, us-east-2, us-east-3 |
 | eu-gb    | eu-gb-1, eu-gb-2, eu-gb-3 |
 | eu-de    | eu-de-1, eu-de-2, eu-de-3 |
 | jp-tok   | jp-tok-1, jp-tok-2, jp-tok-3 |
@@ -30,7 +27,6 @@ To list the available regions, run the following command: ```ibmcloud is regions
 
 ## Check Point Knowledgebase
 Click [HERE](https://checkpoint.com/) to view the knowledgebase article for IBM Cloud VPC deployments on the Check Point Usercenter.
-
 
 ## About Check Point Software Technologies Ltd.
 Check Point Software Technologies Ltd. (www.checkpoint.com) is a leading provider of cyber security solutions to governments and corporate <br> 
