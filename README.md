@@ -11,6 +11,7 @@
 | Resource_Group | The resource group that will be used when provisioning the Check Point VSI. If left unspecififed, the account's default resource group will be used. command: ```ibmcloud resource groups``` |
 | Frontend_Subnet_ID | The ID of the subnet that exists in front of the Check Point Security Gateway that will be provisioned (the "external" network). To list the available subnets, run  the following command: ```ibmcloud is subnets```|
 | Backend_Subnet_ID  | The ID of the subnet that exists behind the Check Point Security Gateway that will be provisioned (the "internal" network).  To list the available subnets, run  the following command: ```ibmcloud is subnets```|
+| CP_Version | Version of Check Point CloudGuard to Deploy |
 | SSH_Key       | The pubic SSH Key that will be used when provisioning the Check Point  VSI. To list the available SSH keys, run  the following command: ```ibmcloud is keys``` |
 | VNF_Security_Group | The name of the security group for the VNF VPC. To list the available security groups, run  the following command: ```ibmcloud is security-groups```  |
 
