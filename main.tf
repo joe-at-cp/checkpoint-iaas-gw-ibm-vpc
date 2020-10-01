@@ -69,18 +69,9 @@ variable "VNF_Profile" {
   description = "The VNF profile that defines the CPU and memory resources. This will be used when provisioning the Check Point VSI."
 }
 
-variable "vnf_cos_image_name" {
-  default     = "Check_Point_R80.40_Cloudguard_Security_Management_Generic_06012020_EA.qcow2"
-  description = "(HIDDEN) The COS image file name"
-}
-
-variable "vnf_cos_gw_image_url_test" {
+variable "CP_Version" {
   default     = ""
-  description = "(HIDDEN) The COS image object url for Checkpoint GW qcow2 image in test.cloud.ibm.com."
-}
-variable "vnf_bucket_base_name" {
-  default     = "r80.40"
-  description = "(HIDDEN) Base name of the COS bucket without the region. "
+  description = "(HIDDEN) The version of Check Point to deploy. R80.40, R81EA"
 }
 
 variable "vnf_license" {
@@ -149,11 +140,11 @@ data "ibm_resource_group" "rg" {
 ##############################################################################
 
 locals {
-  image_url_gw    = "cos://${var.VPC_Region}/${var.vnf_bucket_base_name}-${var.VPC_Region}/${var.vnf_cos_image_name}"
+  image_url    = "cos://${var.VPC_Region}/checkpoint-${var.VPC_Region}/Check_Point_${var.CP_Version}_Cloudguard_Security_Gateway.qcow2"
 }
 
 resource "ibm_is_image" "cp_gw_custom_image" {
-  href             = "${local.image_url_gw}"
+  href             = "${local.image_url}"
   name             = "${var.VNF_CP-GW_Instance}"
   operating_system = "centos-7-amd64"
   resource_group   = "${data.ibm_resource_group.rg.id}"
