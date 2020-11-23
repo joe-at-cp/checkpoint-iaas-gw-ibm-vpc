@@ -1,5 +1,5 @@
 ##############################################################################
-# IBM Cloud Provider 1.13.1
+# IBM Cloud Provider
 ##############################################################################
 
 provider "ibm" {
@@ -65,8 +65,8 @@ variable "VNF_Profile" {
 }
 
 variable "CP_Version" {
-  default     = ""
-  description = "(HIDDEN) The version of Check Point to deploy. R80.40, R81EA"
+  default     = "R80.40"
+  description = "The version of Check Point to deploy. R80.40, R81"
 }
 
 variable "vnf_license" {
