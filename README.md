@@ -27,6 +27,26 @@
 
 To list the available regions, run the following command: ```ibmcloud is regions```
 
+## IBM Cloud VPC Deployment Profiles
+| Profile   | Archetecture | Family     | vCPUs | Memory (GB) | Network Performance (Gbps)|       
+|-----------|--------------|------------|-------|-------------|---------------------------|
+|bx2-2x8    |     amd64    |   balanced |  2    |   8         |  4   |
+|bx2-4x16   |     amd64    |   balanced |  4    |   16        |  8   |
+|bx2-8x32   |     amd64    |   balanced |  8    |   32        |  16  |
+|bx2-16x64  |     amd64    |   balanced |  16   |   64        |  32  | 
+|bx2-32x128 |     amd64    |   balanced |  32   |   128       |  64  |
+|bx2-48x192 |     amd64    |   balanced |  48   |   192       |  80  |
+|cx2-2x4    |     amd64    |   compute  |  2    |   4         |  4   |
+|cx2-4x8    |     amd64    |   compute  |  4    |   8         |  8   | 
+|cx2-8x16   |     amd64    |   compute  |  8    |   16        |  16  | 
+|cx2-16x32  |     amd64    |   compute  |  16   |   32        |  32  |
+|cx2-32x64  |     amd64    |   compute  |  32   |   64        |  64  | 
+|mx2-2x16   |     amd64    |   memory   |  2    |   16        |  4   |   
+|mx2-4x32   |     amd64    |   memory   |  4    |   32        |  8   |
+|mx2-8x64   |     amd64    |   memory   |  8    |   64        |  16  |  
+|mx2-16x128 |     amd64    |   memory   |  16   |   128       |  32  |  
+|mx2-32x256 |     amd64    |   memory   |  32   |   256       |  64  |  
+
 ## Check Point Knowledgebase
 Click [HERE](https://checkpoint.com/) to view the knowledgebase article for IBM Cloud VPC deployments on the Check Point Usercenter.
 
