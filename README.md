@@ -2,6 +2,20 @@
 
 # Check Point CloudGuard Security Gateway
 
+## About
+This template will deploy a new Check Point security gateway into an existing VPC environment. The deployment will use three interfaces: Management, External, and Internal. See below for the prerequisites of this deployment type. 
+
+## Check Point Resources
+- Check Point knowledgebase article for IBM Cloud VPC deployments [SK170400](https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&solutionid=sk170400&partition=Basic&product=Security).
+- Check Point [Full Deployment Guide](https://supportcenter.checkpoint.com/supportcenter/portal?action=portlets.DCFileAction&eventSubmit_doGetdcdetails=&fileid=112069)
+
+## Deployment Prerequisites 
+- VPC
+- Management Subnet
+- External Subnet
+- Internal Subnet
+- SSH Key
+
 ## Deployment Parameters
 | Deploymenmt Parameter | Description |
 |-----------------------|-------------|
@@ -28,6 +42,8 @@
 To list the available regions, run the following command: ```ibmcloud is regions```
 
 ## IBM Cloud VPC Deployment Profiles
+### Note: For gateway deployments it is recommended to use profiles from the compute family.
+
 | Profile   | Archetecture | Family     | vCPUs | Memory (GB) | Network Performance (Gbps)|       
 |-----------|--------------|------------|-------|-------------|---------------------------|
 |bx2-2x8    |     amd64    |   balanced |  2    |   8         |  4   |
@@ -46,9 +62,6 @@ To list the available regions, run the following command: ```ibmcloud is regions
 |mx2-8x64   |     amd64    |   memory   |  8    |   64        |  16  |  
 |mx2-16x128 |     amd64    |   memory   |  16   |   128       |  32  |  
 |mx2-32x256 |     amd64    |   memory   |  32   |   256       |  64  |  
-
-## Check Point Knowledgebase
-Click [HERE](https://checkpoint.com/) to view the knowledgebase article for IBM Cloud VPC deployments on the Check Point Usercenter.
 
 ## About Check Point Software Technologies Ltd.
 Check Point Software Technologies Ltd. (www.checkpoint.com) is a leading provider of cyber security solutions to governments and corporate <br> 
