@@ -1,5 +1,5 @@
 ##############################################################################
-# IBM Cloud Provider
+# IBM Cloud Provider 1.13.1
 ##############################################################################
 
 provider "ibm" {
@@ -50,7 +50,7 @@ variable "SSH_Key" {
 }
 
 variable "VNF_CP-GW_Instance" {
-  default     = "checkpoint-gw-image"
+  default     = "checkpoint-gateway"
   description = "The name of the Check Point Security Gatewat that will be provisioned."
 }
 
@@ -60,13 +60,18 @@ variable "VNF_Security_Group" {
 }
 
 variable "VNF_Profile" {
-  default     = "bx2-2x8"
+  default     = "cx2-8x16"
   description = "The VNF profile that defines the CPU and memory resources. This will be used when provisioning the Check Point VSI."
 }
 
 variable "CP_Version" {
-  default     = "R80.40"
-  description = "The version of Check Point to deploy. R80.40, R81"
+  default     = "R8040"
+  description = "The version of Check Point to deploy. R8040, R81"
+}
+
+variable "CP_Type" {
+  default     = "Gateway"
+  description = "(HIDDEN) Gateway or Management"
 }
 
 variable "vnf_license" {
@@ -110,10 +115,6 @@ data "ibm_is_subnet" "cp_subnet2" {
   identifier = var.Internal_Subnet_ID
 }
 
-data "ibm_is_image" "cp_gw_custom_image" {
-  name = ibm_is_image.cp_gw_custom_image.name
-}
-
 data "ibm_is_ssh_key" "cp_ssh_pub_key" {
   name = var.SSH_Key
 }
@@ -132,30 +133,6 @@ data "ibm_is_vpc" "cp_vpc" {
 
 data "ibm_resource_group" "rg" {
   name = var.Resource_Group
-}
-
-##############################################################################
-# Create Custom Image
-##############################################################################
-
-# Generating random ID
-resource "random_uuid" "test" { }
-
-locals {
-  image_url = "cos://${var.VPC_Region}/checkpoint-${var.VPC_Region}/Check_Point_${var.CP_Version}_Cloudguard_Security_Gateway.qcow2"
-}
-
-resource "ibm_is_image" "cp_gw_custom_image" {
-  depends_on       = [random_uuid.test]
-  href             = local.image_url
-  name             = "${var.VNF_CP-GW_Instance}-${substr(random_uuid.test.result,0,8)}"
-  operating_system = "centos-7-amd64"
-  resource_group   = data.ibm_resource_group.rg.id
-
-  timeouts {
-    create = "30m"
-    delete = "10m"
-  }
 }
 
 ##############################################################################
@@ -184,15 +161,19 @@ resource "ibm_is_security_group_rule" "allow_ingress_all" {
   remote     = "0.0.0.0/0"
 }
 
-
 ##############################################################################
 # Create Check Point Gateway
 ##############################################################################
 
+locals {
+  image_name = "${var.CP_Version}-${var.CP_Type}"
+  image_id = lookup(local.image_map[local.image_name], var.VPC_Region)
+}
+
 resource "ibm_is_instance" "cp_gw_vsi" {
-  depends_on     = [ibm_is_security_group_rule.allow_ingress_all, data.ibm_is_image.cp_gw_custom_image]
+  depends_on     = [ibm_is_security_group_rule.allow_ingress_all]
   name           = var.VNF_CP-GW_Instance
-  image          = ibm_is_image.cp_gw_custom_image.id
+  image          = local.image_id
   profile        = data.ibm_is_instance_profile.vnf_profile.name
   resource_group = data.ibm_resource_group.rg.id
 
@@ -228,23 +209,8 @@ resource "ibm_is_instance" "cp_gw_vsi" {
     create = "15m"
     delete = "15m"
   }
-  # Hack to handle some race condition; will remove it once have root caused the issues.
+
   provisioner "local-exec" {
     command = "sleep 30"
   }
-}
-
-# Delete checkpoint firewall custom image from the local user after VSI creation.
-data "external" "delete_custom_image1" {
-  depends_on = [ibm_is_instance.cp_gw_vsi]
-  program    = ["bash", "${path.module}/scripts/delete_custom_image.sh"]
-
-  query = {
-    custom_image_id = data.ibm_is_image.cp_gw_custom_image.id
-    region          = var.VPC_Region
-  }
-}
-
-output "delete_custom_image1" {
-  value = lookup(data.external.delete_custom_image1.result, "custom_image_id")
 }
