@@ -20,7 +20,6 @@ This template will deploy a new Check Point security gateway into an existing VP
 | Deploymenmt Parameter | Description |
 |-----------------------|-------------|
 | VPC_Region | The region where the VPC, networks, and Check Point VSI will be provisioned. To list the available regions, run  the following command: ```ibmcloud is regions```|
-| VPC_Zone   | The zone where the VPC, networks, and Check Point VSI will be provisioned. To list the available zones, run  the following command: ```ibmcloud is zones```|
 | VPC_Name  | The VPC where the Check Point VSI will be provisioned. To list the all VPCs, run  the following command: ```ibmcloud is vpcs```|
 | Resource_Group | The resource group that will be used when provisioning the Check Point VSI. If left unspecififed, the account's default resource group will be used. command: ```ibmcloud resource groups``` |
 | Management_Subnet_ID | The ID of the subnet managing the Check Point Security Gateway that will be provisioned. To list the available subnets, run  the following command: ```ibmcloud is subnets```|
