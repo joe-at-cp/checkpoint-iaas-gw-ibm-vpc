@@ -56,7 +56,7 @@ variable "VNF_CP-GW_Instance" {
 
 variable "VNF_Security_Group" {
   default     = ""
-  description = "The name of the security group assigned to the Check Point VSI."
+  description = "Enter a unique name for the security-group to be applied to Check Point interfaces."
 }
 
 variable "VNF_Profile" {
