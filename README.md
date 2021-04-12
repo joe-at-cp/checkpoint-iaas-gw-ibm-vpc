@@ -39,6 +39,7 @@ This template will deploy a new Check Point security gateway into an existing VP
 | jp-tok   | jp-tok-1, jp-tok-2, jp-tok-3 |
 | jq-osa   | jq-osa-1, jq-osa-2, jq-osa-3 |
 | au-syd   | au-syd-1, au-syd-2, au-syd-3 |
+| ca-tor   | ca-tor-1, ca-tor-2, ca-tor-3 |
 
 To list the available regions, run the following command: ```ibmcloud is regions```
 
