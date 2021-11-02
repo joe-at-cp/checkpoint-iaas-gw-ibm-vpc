@@ -1,6 +1,16 @@
 ##############################################################################
-# IBM Cloud Provider 1.13.1
+# IBM Cloud Provider 1.35.0
 ##############################################################################
+
+terraform {
+  required_version = ">= 0.13.3"
+  required_providers {
+    ibm = {
+      source  = "ibm-cloud/ibm"
+      version = "1.35.0"
+    }
+  }
+}
 
 provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key
@@ -56,7 +66,7 @@ variable "VNF_CP-GW_Instance" {
 
 variable "VNF_Security_Group" {
   default     = ""
-  description = "Enter a unique name for the security-group to be applied to Check Point interfaces."
+  description = "The name of the security group assigned to the Check Point VSI."
 }
 
 variable "VNF_Profile" {
@@ -182,6 +192,7 @@ resource "ibm_is_instance" "cp_gw_vsi" {
     name            = "eth0"
     subnet          = data.ibm_is_subnet.cp_subnet0.id
     security_groups = [ibm_is_security_group.ckp_security_group.id]
+    allow_ip_spoofing = true
   }
 
   #eth1 - External Interface
@@ -189,6 +200,7 @@ resource "ibm_is_instance" "cp_gw_vsi" {
     name            = "eth1"
     subnet          = data.ibm_is_subnet.cp_subnet1.id
     security_groups = [ibm_is_security_group.ckp_security_group.id]
+    allow_ip_spoofing = true
   }
 
   #eth2 - Internal Interface
@@ -196,6 +208,7 @@ resource "ibm_is_instance" "cp_gw_vsi" {
     name            = "eth2"
     subnet          = data.ibm_is_subnet.cp_subnet2.id
     security_groups = [ibm_is_security_group.ckp_security_group.id]
+    allow_ip_spoofing = true
   }
 
   vpc  = data.ibm_is_vpc.cp_vpc.id
