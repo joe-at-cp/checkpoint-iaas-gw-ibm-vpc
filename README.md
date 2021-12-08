@@ -3,7 +3,7 @@
 # Check Point CloudGuard Security Gateway
 
 ## About
-This template will deploy a new Check Point security gateway into an existing VPC environment. The deployment will use three interfaces: Management, External, and Internal. See below for the prerequisites of this deployment type. 
+This template will deploy a new Check Point security gateway into an existing VPC environment. The deployment will use three interfaces: Management, External, and Internal. See below for the prerequisites of this deployment type. Before logging into the web gui you must login via ssh key set the admin password by running, "set user admin password". 
 
 ## Check Point Resources
 - Check Point knowledgebase article for IBM Cloud VPC deployments [SK170400](https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&solutionid=sk170400&partition=Basic&product=Security).
@@ -40,6 +40,7 @@ This template will deploy a new Check Point security gateway into an existing VP
 | jq-osa   | jq-osa-1, jq-osa-2, jq-osa-3 |
 | au-syd   | au-syd-1, au-syd-2, au-syd-3 |
 | ca-tor   | ca-tor-1, ca-tor-2, ca-tor-3 |
+| br-sao   | br-sao-1, br-sao-2, br-sao-3 |
 
 To list the available regions, run the following command: ```ibmcloud is regions```
 
